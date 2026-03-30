@@ -54,8 +54,12 @@ RUN chown -R www-data:www-data /var/www/html && \
 RUN php artisan migrate --force || true
 
 # Update Apache configuration
-RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf && \
+RUN echo "Listen 0.0.0.0:80" >> /etc/apache2/ports.conf && \
+    sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf && \
     sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/default-ssl.conf 2>/dev/null || true
+
+# Enable required Apache modules
+RUN a2enmod rewrite headers
 
 EXPOSE 80
 
