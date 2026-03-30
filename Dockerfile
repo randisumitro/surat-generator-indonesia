@@ -53,4 +53,8 @@ RUN sed -i 's/80/${PORT}/g' /etc/apache2/ports.conf && \
 RUN echo "ErrorLog ${APACHE_LOG_DIR}/error.log" >> /etc/apache2/sites-available/000-default.conf && \
     echo "LogLevel warn" >> /etc/apache2/sites-available/000-default.conf
 
-CMD ["apache2-foreground"]
+# Copy entrypoint script
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+CMD ["/usr/local/bin/entrypoint.sh"]
