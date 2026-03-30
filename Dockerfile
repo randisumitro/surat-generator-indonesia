@@ -10,6 +10,7 @@ RUN apt-get update -qq && \
     libonig-dev \
     libxml2-dev \
     libsqlite3-dev \
+    libicu-dev \
     zip \
     unzip \
     git \
@@ -18,7 +19,7 @@ RUN apt-get update -qq && \
 
 # Configure and install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install -j$(nproc) gd pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath zip
+    docker-php-ext-install -j$(nproc) gd pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath zip intl
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
