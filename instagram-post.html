@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Post - Surat Generator Indonesia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        * { font-family: 'Inter', sans-serif; }
+
+        .instagram-frame {
+            width: 1080px;
+            height: 1080px;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-15-frame {
+            width: 390px;
+            height: 844px;
+            border-radius: 40px;
+            border: 8px solid #1a1a1a;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            position: relative;
+            background: white;
+        }
+
+        .phone-15-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 210px;
+            height: 32px;
+            background: #1a1a1a;
+            border-radius: 0 0 25px 25px;
+            z-index: 100;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .story-gradient {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    
+    <!-- Instagram Post 1: Feature Showcase -->
+    <div class="flex flex-wrap justify-center gap-8 mb-12">
+        <div class="instagram-frame">
+            <!-- Background Gradient -->
+            <div class="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500"></div>
+            
+            <!-- Content -->
+            <div class="relative z-10 h-full flex flex-col justify-between p-12 text-white">
+                <!-- Top Section -->
+                <div class="text-center">
+                    <div class="w-24 h-24 bg-white/20 backdrop-blur-lg rounded-3xl flex items-center justify-center mx-auto mb-6 animate-float">
+                        <span class="text-5xl">🇮🇩</span>
+                    </div>
+                    <h1 class="text-5xl font-bold mb-4">Surat Generator</h1>
+                    <p class="text-xl opacity-90">Indonesia</p>
+                </div>
+
+                <!-- Middle Section - Phone Mockup -->
+                <div class="flex justify-center">
+                    <div class="phone-15-frame">
+                        <div class="phone-15-notch"></div>
+                        <div class="phone-screen">
+                            <!-- App Screen -->
+                            <div class="gradient-primary h-full relative">
+                                <!-- Status Bar -->
+                                <div class="flex justify-between items-center px-6 pt-12 pb-2 text-xs text-white">
+                                    <span class="font-medium">9:41</span>
+                                    <div class="flex gap-1">
+                                        <i class="fas fa-signal"></i>
+                                        <i class="fas fa-wifi"></i>
+                                        <i class="fas fa-battery-three-quarters"></i>
+                                    </div>
+                                </div>
+
+                                <!-- App Content -->
+                                <div class="px-6 py-4">
+                                    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 mb-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center">
+                                                <span class="text-2xl">📄</span>
+                                            </div>
+                                            <div class="text-white">
+                                                <p class="font-semibold">Surat Lamaran</p>
+                                                <p class="text-xs opacity-90">Template Professional</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 mb-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center">
+                                                <span class="text-2xl">👤</span>
+                                            </div>
+                                            <div class="text-white">
+                                                <p class="font-semibold">CV Modern</p>
+                                                <p class="text-xs opacity-90">Design Kreatif</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-12 h-12 bg-white/30 rounded-xl flex items-center justify-center">
+                                                <span class="text-2xl">📋</span>
+                                            </div>
+                                            <div class="text-white">
+                                                <p class="font-semibold">Surat Keterangan</p>
+                                                <p class="text-xs opacity-90">Format Resmi</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bottom Navigation -->
+                                <div class="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-lg">
+                                    <div class="grid grid-cols-4 py-3">
+                                        <div class="text-center py-2">
+                                            <i class="fas fa-home text-white text-lg"></i>
+                                        </div>
+                                        <div class="text-center py-2">
+                                            <i class="fas fa-folder text-white/60 text-lg"></i>
+                                        </div>
+                                        <div class="text-center py-2">
+                                            <i class="fas fa-chart-bar text-white/60 text-lg"></i>
+                                        </div>
+                                        <div class="text-center py-2">
+                                            <i class="fas fa-cog text-white/60 text-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-4">Buat Dokumen Profesional</h2>
+                    <p class="text-lg opacity-90 mb-6">Surat Lamaran • CV • Surat Keterangan</p>
+                    
+                    <div class="flex justify-center gap-4 mb-8">
+                        <div class="bg-white/20 backdrop-blur-lg rounded-2xl px-6 py-3">
+                            <i class="fas fa-check-circle text-2xl mb-2"></i>
+                            <p class="text-sm">Gratis</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-lg rounded-2xl px-6 py-3">
+                            <i class="fas fa-bolt text-2xl mb-2"></i>
+                            <p class="text-sm">Cepat</p>
+                        </div>
+                        <div class="bg-white/20 backdrop-blur-lg rounded-2xl px-6 py-3">
+                            <i class="fas fa-shield-alt text-2xl mb-2"></i>
+                            <p class="text-sm">Aman</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white text-gray-900 rounded-2xl px-8 py-4 inline-block">
+                        <p class="font-semibold">📱 Download Sekarang</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Post 2: Feature Benefits -->
+        <div class="instagram-frame">
+            <!-- Background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-indigo-600"></div>
+            
+            <!-- Pattern Overlay -->
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="white" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/svg%3E');"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="relative z-10 h-full flex flex-col justify-center items-center p-12 text-white text-center">
+                <!-- Icon -->
+                <div class="w-32 h-32 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center mb-8 animate-pulse-slow">
+                    <i class="fas fa-magic text-6xl"></i>
+                </div>
+
+                <!-- Title -->
+                <h1 class="text-4xl font-bold mb-6">Mudah & Cepat</h1>
+
+                <!-- Features -->
+                <div class="space-y-6 mb-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-clock text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xl font-semibold">5 Menit Jadi</p>
+                            <p class="opacity-90">Dokumen siap pakai</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-palette text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xl font-semibold">20+ Template</p>
+                            <p class="opacity-90">Design profesional</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center">
+                            <i class="fas fa-download text-2xl"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xl font-semibold">PDF HD</p>
+                            <p class="opacity-90">Kualitas terbaik</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="bg-white text-indigo-600 rounded-2xl px-8 py-4">
+                    <p class="font-bold text-lg">🚀 Coba Sekarang!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instagram Post 3: Testimonial -->
+        <div class="instagram-frame">
+            <!-- Background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-teal-600"></div>
+            
+            <!-- Content -->
+            <div class="relative z-10 h-full flex flex-col justify-between p-12">
+                <!-- Top -->
+                <div class="text-center text-white">
+                    <div class="w-20 h-20 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-star text-4xl text-yellow-300"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold mb-4">Testimoni User</h1>
+                </div>
+
+                <!-- Middle - Testimonial Cards -->
+                <div class="space-y-4">
+                    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 text-white">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center">
+                                <span class="text-xl">👨‍💼</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Andi Pratama</p>
+                                <div class="flex text-yellow-300">
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm">"Aplikasi sangat membantu! CV saya jadi lebih profesional dan dapat panggilan interview."</p>
+                    </div>
+
+                    <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-6 text-white">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-12 h-12 bg-white/30 rounded-full flex items-center justify-center">
+                                <span class="text-xl">👩‍💼</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Siti Nurhaliza</p>
+                                <div class="flex text-yellow-300">
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                    <i class="fas fa-star text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm">"Template surat lamaran yang elegan. Prosesnya cepat dan hasilnya memuaskan!"</p>
+                    </div>
+                </div>
+
+                <!-- Bottom -->
+                <div class="text-center">
+                    <div class="bg-white text-green-600 rounded-2xl px-8 py-4 inline-block">
+                        <p class="font-bold">⭐ 4.8/5 Rating</p>
+                    </div>
+                    <p class="text-white/90 mt-4">10,000+ Download</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Instagram Story Frames -->
+    <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Instagram Stories</h2>
+        <div class="flex justify-center gap-4">
+            <!-- Story 1 -->
+            <div class="w-72 h-96 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl p-6 flex flex-col justify-between text-white">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl">🇮🇩</span>
+                    </div>
+                    <h3 class="text-xl font-bold">Surat Generator</h3>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-2xl font-bold mb-2">5 Menit</p>
+                    <p class="text-sm opacity-90">Buat dokumen profesional</p>
+                </div>
+
+                <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 text-center">
+                    <p class="font-semibold">👉 Swipe Up!</p>
+                </div>
+            </div>
+
+            <!-- Story 2 -->
+            <div class="w-72 h-96 bg-gradient-to-br from-pink-500 to-rose-600 rounded-3xl p-6 flex flex-col justify-between text-white">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-magic text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Template Premium</h3>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-2xl font-bold mb-2">20+</p>
+                    <p class="text-sm opacity-90">Design profesional</p>
+                </div>
+
+                <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 text-center">
+                    <p class="font-semibold">✨ Gratis!</p>
+                </div>
+            </div>
+
+            <!-- Story 3 -->
+            <div class="w-72 h-96 bg-gradient-to-br from-amber-500 to-orange-600 rounded-3xl p-6 flex flex-col justify-between text-white">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-white/20 backdrop-blur-lg rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-download text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Download</h3>
+                </div>
+                
+                <div class="text-center">
+                    <p class="text-2xl font-bold mb-2">PDF HD</p>
+                    <p class="text-sm opacity-90">Kualitas terbaik</p>
+                </div>
+
+                <div class="bg-white/20 backdrop-blur-lg rounded-2xl p-4 text-center">
+                    <p class="font-semibold">📱 Install Now</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Instructions -->
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">📸 Instagram Export Guide</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="font-semibold text-gray-900 mb-3">Post Specifications</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li>• Size: 1080x1080px (Square)</li>
+                    <li>• Format: PNG or JPG</li>
+                    <li>• Quality: High (100%)</li>
+                    <li>• Max file size: 30MB</li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="font-semibold text-gray-900 mb-3">Story Specifications</h3>
+                <ul class="space-y-2 text-gray-600">
+                    <li>• Size: 1080x1920px (9:16)</li>
+                    <li>• Format: PNG or JPG</li>
+                    <li>• Duration: 15 seconds max</li>
+                    <li>• Add swipe-up link</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-6 p-4 bg-indigo-50 rounded-xl">
+            <h3 class="font-semibold text-indigo-900 mb-2">🎨 Design Notes</h3>
+            <ul class="text-sm text-indigo-800 space-y-1">
+                <li>• iPhone 15 Pro frame (390x844px) for realistic mockup</li>
+                <li>• Gradient backgrounds for visual appeal</li>
+                <li>• Consistent brand colors and typography</li>
+                <li>• Clear call-to-action buttons</li>
+                <li>• Indonesian language for target audience</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Generator Indonesia - Mobile App Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        * { font-family: 'Inter', sans-serif; }
+
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            border-radius: 40px;
+            border: 12px solid #1a1a1a;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+            background: white;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 30px;
+            background: #1a1a1a;
+            border-radius: 0 0 20px 20px;
+            z-index: 100;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .floating-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+        }
+
+        .tab-active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <!-- Header -->
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">🇮🇩 Surat Generator Indonesia</h1>
+        <p class="text-lg text-gray-600">Mobile App Design System - Figma Ready</p>
+    </div>
+
+    <!-- Phone Frames Container -->
+    <div class="flex flex-wrap justify-center gap-8 mb-8">
+        
+        <!-- Screen 1: Home -->
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center px-6 pt-10 pb-2 text-xs">
+                    <span class="font-medium">9:41</span>
+                    <div class="flex gap-1">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="gradient-primary px-6 pt-4 pb-8 text-white">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                                <span class="text-xl">🇮🇩</span>
+                            </div>
+                            <div>
+                                <h2 class="text-lg font-bold">Surat Generator</h2>
+                                <p class="text-xs opacity-90">Indonesia</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-bell text-sm"></i>
+                            </div>
+                            <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-user text-sm"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="bg-white/20 rounded-xl p-3 text-center">
+                            <p class="text-2xl font-bold">12</p>
+                            <p class="text-xs opacity-90">Total</p>
+                        </div>
+                        <div class="bg-white/20 rounded-xl p-3 text-center">
+                            <p class="text-2xl font-bold">3</p>
+                            <p class="text-xs opacity-90">Minggu Ini</p>
+                        </div>
+                        <div class="bg-white/20 rounded-xl p-3 text-center">
+                            <p class="text-2xl font-bold">8</p>
+                            <p class="text-xs opacity-90">Dibagikan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="px-6 -mt-4">
+                    <div class="card p-4">
+                        <h3 class="font-semibold text-gray-900 mb-3">Buat Dokumen</h3>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-2xl">📄</span>
+                                </div>
+                                <p class="text-xs text-gray-600">Surat Lamaran</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-2xl">👤</span>
+                                </div>
+                                <p class="text-xs text-gray-600">CV</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-2xl">📋</span>
+                                </div>
+                                <p class="text-xs text-gray-600">Surat Keterangan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Documents -->
+                <div class="px-6 mt-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-semibold text-gray-900">Terbaru</h3>
+                        <a href="#" class="text-indigo-600 text-sm">Lihat Semua</a>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="card p-4 flex items-center gap-3">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                                <span class="text-xl">📄</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Surat Lamaran Kerja</p>
+                                <p class="text-xs text-gray-500">2 jam yang lalu</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                        <div class="card p-4 flex items-center gap-3">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <span class="text-xl">👤</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">CV Profesional</p>
+                                <p class="text-xs text-gray-500">1 hari yang lalu</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Navigation -->
+                <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+                    <div class="grid grid-cols-4 py-2">
+                        <div class="text-center py-2">
+                            <i class="fas fa-home text-indigo-600 text-xl mb-1"></i>
+                            <p class="text-xs text-indigo-600">Beranda</p>
+                        </div>
+                        <div class="text-center py-2">
+                            <i class="fas fa-folder text-gray-400 text-xl mb-1"></i>
+                            <p class="text-xs text-gray-400">Dokumen</p>
+                        </div>
+                        <div class="text-center py-2">
+                            <i class="fas fa-chart-bar text-gray-400 text-xl mb-1"></i>
+                            <p class="text-xs text-gray-400">Statistik</p>
+                        </div>
+                        <div class="text-center py-2">
+                            <i class="fas fa-cog text-gray-400 text-xl mb-1"></i>
+                            <p class="text-xs text-gray-400">Pengaturan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Document Form -->
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center px-6 pt-10 pb-2 text-xs">
+                    <span class="font-medium">9:41</span>
+                    <div class="flex gap-1">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="bg-white border-b border-gray-200 px-6 py-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-arrow-left text-gray-600"></i>
+                        <h2 class="text-lg font-semibold flex-1">Surat Lamaran Kerja</h2>
+                        <i class="fas fa-info-circle text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="px-6 py-3">
+                    <div class="flex justify-between text-xs text-gray-500 mb-2">
+                        <span>Langkah 1 dari 3</span>
+                        <span>33%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="gradient-primary h-2 rounded-full" style="width: 33%"></div>
+                    </div>
+                </div>
+
+                <!-- Form Content -->
+                <div class="px-6 pb-24">
+                    <!-- Template Selection -->
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 mb-3">Pilih Template</h3>
+                        <div class="space-y-3">
+                            <div class="card p-4 border-2 border-indigo-500 bg-indigo-50">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium">Professional</p>
+                                        <p class="text-xs text-gray-500">Modern dan clean</p>
+                                    </div>
+                                    <div class="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-check text-white text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card p-4 border-2 border-gray-200">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="font-medium">Kreatif</p>
+                                        <p class="text-xs text-gray-500">Desain menarik</p>
+                                    </div>
+                                    <div class="w-6 h-6 border-2 border-gray-300 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Fields -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Nama Lengkap <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="Masukkan nama lengkap">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Email <span class="text-red-500">*</span>
+                            </label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="email@example.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Nomor Telepon <span class="text-red-500">*</span>
+                            </label>
+                            <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" placeholder="+62 812-3456-7890">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Alamat <span class="text-red-500">*</span>
+                            </label>
+                            <textarea class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Action Button -->
+                <div class="floating-btn">
+                    <i class="fas fa-arrow-right text-xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Document Result -->
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center px-6 pt-10 pb-2 text-xs">
+                    <span class="font-medium">9:41</span>
+                    <div class="flex gap-1">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="bg-white border-b border-gray-200 px-6 py-4">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-arrow-left text-gray-600"></i>
+                        <h2 class="text-lg font-semibold flex-1">Hasil Dokumen</h2>
+                        <i class="fas fa-share-alt text-gray-600"></i>
+                    </div>
+                </div>
+
+                <!-- Success Message -->
+                <div class="px-6 py-4">
+                    <div class="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-green-900">Dokumen Berhasil Dibuat!</p>
+                            <p class="text-sm text-green-700">Surat lamaran Anda siap digunakan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Document Preview -->
+                <div class="px-6">
+                    <div class="card p-4">
+                        <div class="bg-gray-100 rounded-lg p-4" style="height: 400px;">
+                            <div class="bg-white rounded-lg p-4 shadow-sm">
+                                <div class="text-center mb-4">
+                                    <h3 class="font-bold text-lg">SURAT LAMARAN KERJA</h3>
+                                </div>
+                                <div class="space-y-2 text-sm">
+                                    <p><strong>Yth. HRD Manager</strong></p>
+                                    <p><strong>PT Nama Perusahaan</strong></p>
+                                    <p class="mt-4">Dengan hormat,</p>
+                                    <p>Berdasarkan informasi lowongan pekerjaan yang saya terima, saya bermaksud melamar posisi...</p>
+                                    <p class="mt-4">Demikian surat lamaran ini saya buat. Atas perhatian Bapak/Ibu saya ucapkan terima kasih.</p>
+                                    <div class="mt-6 text-right">
+                                        <p>Hormat saya,</p>
+                                        <p class="mt-4">[Nama Anda]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="px-6 py-6 space-y-3">
+                    <button class="btn-primary w-full py-4 rounded-xl flex items-center justify-center gap-3">
+                        <i class="fas fa-download"></i>
+                        <span>Download PDF</span>
+                    </button>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button class="bg-gray-100 text-gray-700 py-3 rounded-xl flex items-center justify-center gap-2">
+                            <i class="fas fa-copy"></i>
+                            <span>Salin Teks</span>
+                        </button>
+                        <button class="bg-gray-100 text-gray-700 py-3 rounded-xl flex items-center justify-center gap-2">
+                            <i class="fas fa-share"></i>
+                            <span>Bagikan</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 4: Dashboard -->
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center px-6 pt-10 pb-2 text-xs">
+                    <span class="font-medium">9:41</span>
+                    <div class="flex gap-1">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="gradient-primary px-6 pt-4 pb-6 text-white">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold">Dashboard</h2>
+                        <i class="fas fa-filter"></i>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-white/20 rounded-xl p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-bold">24</p>
+                                    <p class="text-xs opacity-90">Total Dokumen</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white/20 rounded-xl p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-white/30 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-share"></i>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-bold">8</p>
+                                    <p class="text-xs opacity-90">Dibagikan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="bg-white border-b border-gray-200 px-6">
+                    <div class="flex gap-6">
+                        <div class="py-3 tab-active">
+                            <span class="font-medium">Semua</span>
+                        </div>
+                        <div class="py-3 text-gray-500">
+                            <span>Surat Lamaran</span>
+                        </div>
+                        <div class="py-3 text-gray-500">
+                            <span>CV</span>
+                        </div>
+                        <div class="py-3 text-gray-500">
+                            <span>Lainnya</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents List -->
+                <div class="px-6 py-4 space-y-3">
+                    <div class="card p-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="text-xl">📄</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Surat Lamaran Kerja</p>
+                                <p class="text-sm text-gray-500">Template Professional</p>
+                                <div class="flex items-center gap-4 mt-2 text-xs text-gray-400">
+                                    <span>2 jam yang lalu</span>
+                                    <span>•</span>
+                                    <span>2 views</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <i class="fas fa-download text-gray-400"></i>
+                                <i class="fas fa-share text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="text-xl">👤</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">CV Profesional</p>
+                                <p class="text-sm text-gray-500">Template Modern</p>
+                                <div class="flex items-center gap-4 mt-2 text-xs text-gray-400">
+                                    <span>1 hari yang lalu</span>
+                                    <span>•</span>
+                                    <span>5 views</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <i class="fas fa-download text-gray-400"></i>
+                                <i class="fas fa-share text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-4">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="text-xl">📋</span>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-gray-900">Surat Keterangan</p>
+                                <p class="text-sm text-gray-500">Template Resmi</p>
+                                <div class="flex items-center gap-4 mt-2 text-xs text-gray-400">
+                                    <span>3 hari yang lalu</span>
+                                    <span>•</span>
+                                    <span>1 view</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-2">
+                                <i class="fas fa-download text-gray-400"></i>
+                                <i class="fas fa-share text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Navigation -->
+                <div class="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+                    <div class="grid grid-cols-4 py-2">
+                        <div class="text-center py-2">
+                            <i class="fas fa-home text-gray-400 text-xl mb-1"></i>
+                            <p class="text-xs text-gray-400">Beranda</p>
+                        </div>
+                        <div class="text-center py-2">
+                            <i class="fas fa-folder text-indigo-600 text-xl mb-1"></i>
+                            <p class="text-xs text-indigo-600">Dokumen</p>
+                        </div>
+                        <div class="text-center py-2">
+                            <i class="fas fa-chart-bar text-gray-400 text-xl mb-1"></i>
+                            <p class="text-xs text-gray-400">Statistik</p>
+                        </div>
+                        <div class="text-center py-2">
+                            <i class="fas fa-cog text-gray-400 text-xl mb-1"></i>
+                            <p class="text-xs text-gray-400">Pengaturan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 5: Settings -->
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center px-6 pt-10 pb-2 text-xs">
+                    <span class="font-medium">9:41</span>
+                    <div class="flex gap-1">
+                        <i class="fas fa-signal"></i>
+                        <i class="fas fa-wifi"></i>
+                        <i class="fas fa-battery-three-quarters"></i>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="bg-white border-b border-gray-200 px-6 py-4">
+                    <h2 class="text-lg font-semibold">Pengaturan</h2>
+                </div>
+
+                <!-- Profile Section -->
+                <div class="px-6 py-4">
+                    <div class="card p-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                                U
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-gray-900">User</p>
+                                <p class="text-sm text-gray-500">user@example.com</p>
+                                <p class="text-xs text-indigo-600 mt-1">Edit Profil</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Options -->
+                <div class="px-6 space-y-4">
+                    <div class="card p-4">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-bell text-blue-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Notifikasi</p>
+                                        <p class="text-xs text-gray-500">Kelola notifikasi</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-language text-purple-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Bahasa</p>
+                                        <p class="text-xs text-gray-500">Indonesia</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-download text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Unduhan</p>
+                                        <p class="text-xs text-gray-500">Kelola file unduhan</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-4">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-star text-amber-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Beri Rating</p>
+                                        <p class="text-xs text-gray-500">Beri kami bintang 5</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-info-circle text-indigo-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Tentang</p>
+                                        <p class="text-xs text-gray-500">Versi 1.0.0</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-full bg-red-50 text-red-600 py-3 rounded-xl font-medium">
+                        Keluar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: Share Modal -->
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen bg-black/50">
+                <!-- Modal Content -->
+                <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl">
+                    <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto mt-3"></div>
+                    
+                    <div class="px-6 py-4">
+                        <h3 class="text-lg font-semibold text-center mb-4">Bagikan Dokumen</h3>
+                        
+                        <!-- Share Options -->
+                        <div class="grid grid-cols-4 gap-4 mb-6">
+                            <div class="text-center">
+                                <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                                    <i class="fab fa-whatsapp text-green-600 text-xl"></i>
+                                </div>
+                                <p class="text-xs text-gray-600">WhatsApp</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-envelope text-blue-600 text-xl"></i>
+                                </div>
+                                <p class="text-xs text-gray-600">Email</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-link text-indigo-600 text-xl"></i>
+                                </div>
+                                <p class="text-xs text-gray-600">Link</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-14 h-14 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
+                                    <i class="fas fa-ellipsis-h text-gray-600 text-xl"></i>
+                                </div>
+                                <p class="text-xs text-gray-600">Lainnya</p>
+                            </div>
+                        </div>
+
+                        <!-- Share Link -->
+                        <div class="bg-gray-50 rounded-xl p-4 mb-4">
+                            <p class="text-sm text-gray-600 mb-2">Link Sharing</p>
+                            <div class="flex items-center gap-2">
+                                <div class="flex-1 bg-white rounded-lg px-3 py-2 text-sm text-gray-700 truncate">
+                                    https://surat-generator.id/share/abc123xyz
+                                </div>
+                                <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm">
+                                    Salin
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Share Options -->
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-lock text-gray-600"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Password Protection</p>
+                                        <p class="text-xs text-gray-500">Tambahkan password</p>
+                                    </div>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                </label>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-clock text-gray-600"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-900">Expiry Date</p>
+                                        <p class="text-xs text-gray-500">7 hari</p>
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right text-gray-400"></i>
+                            </div>
+                        </div>
+
+                        <!-- Close Button -->
+                        <button class="w-full mt-6 py-3 text-gray-600 font-medium">
+                            Tutup
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Design System Info -->
+    <div class="max-w-6xl mx-auto px-8 py-8">
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">📱 Mobile App Design System</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Colors -->
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-4">Color Palette</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-indigo-600 rounded-lg"></div>
+                            <div>
+                                <p class="font-medium">Primary</p>
+                                <p class="text-sm text-gray-500">#6366f1</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-purple-600 rounded-lg"></div>
+                            <div>
+                                <p class="font-medium">Secondary</p>
+                                <p class="text-sm text-gray-500">#8b5cf6</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-green-600 rounded-lg"></div>
+                            <div>
+                                <p class="font-medium">Success</p>
+                                <p class="text-sm text-gray-500">#10b981</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Typography -->
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-4">Typography</h3>
+                    <div class="space-y-2">
+                        <div>
+                            <p class="text-2xl font-bold">Heading 1</p>
+                            <p class="text-sm text-gray-500">Inter, Bold, 24px</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-semibold">Heading 2</p>
+                            <p class="text-sm text-gray-500">Inter, Semibold, 18px</p>
+                        </div>
+                        <div>
+                            <p class="text-base">Body Text</p>
+                            <p class="text-sm text-gray-500">Inter, Regular, 16px</p>
+                        </div>
+                        <div>
+                            <p class="text-sm">Caption</p>
+                            <p class="text-sm text-gray-500">Inter, Regular, 12px</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Components -->
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-4">Components</h3>
+                    <div class="space-y-3">
+                        <button class="btn-primary px-6 py-3 rounded-xl">Primary Button</button>
+                        <div class="bg-gray-100 px-4 py-3 rounded-xl">Input Field</div>
+                        <div class="card p-4">Card Component</div>
+                    </div>
+                </div>
+
+                <!-- Icons -->
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-4">Icons</h3>
+                    <p class="text-gray-600 mb-3">Font Awesome 6.4.0</p>
+                    <div class="grid grid-cols-6 gap-3">
+                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-home text-gray-600"></i>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-file-alt text-gray-600"></i>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-download text-gray-600"></i>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-share text-gray-600"></i>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-bell text-gray-600"></i>
+                        </div>
+                        <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-cog text-gray-600"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Instructions -->
+            <div class="mt-8 p-4 bg-indigo-50 rounded-xl">
+                <h3 class="font-semibold text-indigo-900 mb-2">🎨 Export to Figma</h3>
+                <ol class="text-sm text-indigo-800 space-y-1">
+                    <li>1. Screens are designed at 375x812px (iPhone X/11/12 dimensions)</li>
+                    <li>2. All components use consistent spacing and typography</li>
+                    <li>3. Design system follows Material Design and iOS Human Interface Guidelines</li>
+                    <li>4. Export each phone frame as separate artboard in Figma</li>
+                    <li>5. Create component library for reusable elements</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
