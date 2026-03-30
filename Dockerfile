@@ -23,8 +23,10 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
 
 # Enable Apache modules and fix MPM
 RUN a2dismod mpm_event mpm_worker mpm_prefork 2>/dev/null || true && \
-    a2enmod rewrite mpm_prefork && \
-    sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+    a2enmod mpm_prefork && \
+    a2enmod rewrite && \
+    sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf && \
+    echo "LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so" > /etc/apache2/mods-available/mpm_prefork.load
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
