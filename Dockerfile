@@ -21,8 +21,8 @@ RUN apt-get update -qq && \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath zip intl
 
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# Enable Apache modules
+RUN a2enmod rewrite headers
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -34,32 +34,36 @@ WORKDIR /var/www/html
 COPY . .
 
 # Install PHP dependencies
-RUN composer install --optimize-autoloader --no-dev
+RUN composer install --optimize-autoloader --no-dev --no-scripts
 
-# Setup environment file
+# Setup environment
 RUN cp .env.example .env && \
-    php artisan key:generate
+    php artisan key:generate --force
 
-# Create SQLite database directory
+# Create SQLite database
 RUN mkdir -p database && \
     touch database/database.sqlite && \
+    chmod 777 database && \
     chmod 666 database/database.sqlite
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 storage && \
-    chmod -R 755 bootstrap/cache
+    chmod -R 777 storage && \
+    chmod -R 777 bootstrap/cache
 
 # Run migrations
 RUN php artisan migrate --force || true
 
-# Update Apache configuration
-RUN echo "Listen 0.0.0.0:80" >> /etc/apache2/ports.conf && \
-    sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf && \
-    sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/default-ssl.conf 2>/dev/null || true
+# Configure Apache for Railway
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Enable required Apache modules
-RUN a2enmod rewrite headers
+# Add ServerName directive to suppress warning
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Create a simple health check file
+RUN echo '{"status":"healthy"}' > /var/www/html/public/health.json
 
 EXPOSE 80
 
