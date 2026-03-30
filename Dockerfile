@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
 # Install system dependencies
 RUN apt-get update -qq && \
@@ -20,9 +20,6 @@ RUN apt-get update -qq && \
 # Configure and install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath zip intl
-
-# Enable Apache modules
-RUN a2enmod rewrite headers
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -47,28 +44,15 @@ RUN mkdir -p database && \
     chmod 666 database/database.sqlite
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/html && \
-    chmod -R 777 storage && \
+RUN chmod -R 777 storage && \
     chmod -R 777 bootstrap/cache
 
 # Run migrations
 RUN php artisan migrate --force || true
 
-# Configure Apache for Railway
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
-    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-# Add ServerName directive to suppress warning
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-# Create a simple health check file
-RUN echo '{"status":"healthy"}' > /var/www/html/public/health.json
-
-# Copy and set up entrypoint script
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# Create health check file
+RUN echo '{"status":"healthy"}' > public/health.json
 
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=80"]
