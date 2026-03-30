@@ -24,7 +24,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
 # Enable Apache modules and fix MPM
 RUN a2enmod rewrite && \
     a2dismod mpm_event && \
-    a2enmod mpm_prefork
+    a2enmod mpm_prefork && \
+    sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -33,22 +34,18 @@ WORKDIR /var/www/html
 
 # Copy and setup application
 COPY . .
-RUN composer install --optimize-autoloader --no-dev --no-scripts && \
-    cp .env.example .env && \
-    php artisan key:generate --force && \
-    mkdir -p database && \
-    touch database/database.sqlite && \
-    chmod 777 database && \
-    chmod 666 database/database.sqlite && \
-    chmod -R 777 storage && \
-    chmod -R 777 bootstrap/cache
+RUN composer install --optimize-autoloader --no-dev
 
-# Run migrations
-RUN php artisan migrate --force || true
+# Set permissions
+RUN chmod -R 777 storage bootstrap/cache
 
 # Configure Apache
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-EXPOSE 80
+# Fix port for Railway
+ENV PORT=8080
+EXPOSE 8080
+RUN sed -i 's/80/${PORT}/g' /etc/apache2/ports.conf && \
+    sed -i 's/:80/:${PORT}/g' /etc/apache2/sites-available/000-default.conf
 
 CMD ["apache2-foreground"]
