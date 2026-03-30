@@ -9,6 +9,7 @@ RUN apt-get update -qq && \
     libzip-dev \
     libonig-dev \
     libxml2-dev \
+    libsqlite3-dev \
     zip \
     unzip \
     git \
