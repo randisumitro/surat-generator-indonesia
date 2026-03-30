@@ -24,6 +24,6 @@ chmod -R 777 storage bootstrap/cache
 php artisan --version || echo "Laravel not working"
 php artisan config:cache || echo "Config cache failed"
 
-# Start Apache
+# Start Apache manually
 echo "=== Starting Apache ==="
-exec apache2-foreground
+apache2ctl -D FOREGROUND
