@@ -22,9 +22,8 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath zip intl
 
 # Enable Apache modules and fix MPM
-RUN a2enmod rewrite && \
-    a2dismod mpm_event && \
-    a2enmod mpm_prefork && \
+RUN a2dismod mpm_event mpm_worker mpm_prefork 2>/dev/null || true && \
+    a2enmod rewrite mpm_prefork && \
     sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # Install Composer
