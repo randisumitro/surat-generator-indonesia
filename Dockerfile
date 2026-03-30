@@ -21,8 +21,10 @@ RUN apt-get update -qq && \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd pdo pdo_mysql pdo_sqlite mbstring exif pcntl bcmath zip intl
 
-# Enable Apache modules
-RUN a2enmod rewrite
+# Enable Apache modules and fix MPM
+RUN a2enmod rewrite && \
+    a2dismod mpm_event && \
+    a2enmod mpm_prefork
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
