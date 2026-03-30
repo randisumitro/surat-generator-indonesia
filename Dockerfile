@@ -65,6 +65,10 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # Create a simple health check file
 RUN echo '{"status":"healthy"}' > /var/www/html/public/health.json
 
+# Copy and set up entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 80
 
-CMD ["apache2-foreground"]
+ENTRYPOINT ["docker-entrypoint.sh"]
